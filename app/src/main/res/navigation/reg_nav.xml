@@ -8,17 +8,17 @@
 
     <activity
         android:id="@+id/registrationActivity"
-        android:name="com.example.dtm.registration.RegistrationActivity"
+        android:name="com.example.dtm.ui.registration.RegistrationActivity"
         android:label="activity_registration"
         tools:layout="@layout/activity_registration" />
     <fragment
         android:id="@+id/splashFragment2"
-        android:name="com.example.dtm.registration.splash.SplashFragment"
+        android:name="com.example.dtm.ui.registration.splash.SplashFragment"
         android:label="splash_fragment"
         tools:layout="@layout/splash_fragment" />
     <fragment
         android:id="@+id/registrationFragment"
-        android:name="com.example.dtm.registration.reg.RegistrationFragment"
+        android:name="com.example.dtm.ui.registration.reg.RegistrationFragment"
         android:label="registration_fragment"
         tools:layout="@layout/registration_fragment" />
 

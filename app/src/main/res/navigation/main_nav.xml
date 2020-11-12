@@ -8,26 +8,26 @@
 
     <activity
         android:id="@+id/mainActivity"
-        android:name="com.example.dtm.ui.MainActivity"
+        android:name="com.example.dtm.ui.mainUi.MainActivity"
         android:label="MainActivity" />
     <fragment
         android:id="@+id/favouriteFragment"
-        android:name="com.example.dtm.ui.favourite.FavouriteFragment"
+        android:name="com.example.dtm.ui.mainUi.favourite.FavouriteFragment"
         android:label="fragment_favourite"
         tools:layout="@layout/fragment_favourite" />
     <fragment
         android:id="@+id/historyFragment"
-        android:name="com.example.dtm.ui.history.HistoryFragment"
+        android:name="com.example.dtm.ui.mainUi.history.HistoryFragment"
         android:label="fragment_history"
         tools:layout="@layout/fragment_history" />
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.dtm.ui.home.HomeFragment"
+        android:name="com.example.dtm.ui.mainUi.home.HomeFragment"
         android:label="home_fragment"
         tools:layout="@layout/home_fragment" />
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.example.dtm.ui.settings.SettingsFragment"
+        android:name="com.example.dtm.ui.mainUi.settings.SettingsFragment"
         android:label="settings_fragment"
         tools:layout="@layout/settings_fragment" />
 
