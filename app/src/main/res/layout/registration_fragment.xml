@@ -7,18 +7,18 @@
 
         <variable
             name="viewModel"
-            type="com.example.dtm.registration.reg.RegistrationViewModel" />
+            type="com.example.dtm.ui.registration.reg.RegistrationViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".registration.reg.RegistrationFragment">
+        tools:context=".ui.registration.reg.RegistrationFragment">
 
         <ImageView
             android:id="@+id/img_bg"
             android:layout_width="match_parent"
-            android:layout_height="300sp"
+            android:layout_height="350sp"
             android:background="@drawable/reg_bg"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -30,11 +30,10 @@
             android:id="@+id/sign_in"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="24dp"
             android:text="@string/sign_in"
             android:textColor="@color/primaryTextColor"
             android:textSize="30sp"
-            android:layout_marginBottom="32sp"
             app:layout_constraintBottom_toTopOf="@id/username"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -66,10 +65,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:visibility="gone"
             style="@style/ThemeOverlay.App.TextInputLayout"
             android:textColorHint="@color/primaryTextColor"
             android:hint="@string/username"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@id/til_email"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -110,14 +109,27 @@
             android:id="@+id/btn_sign_in"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/img_bg"
             android:layout_margin="16dp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/sign_up"
             android:onClick="@{viewModel::onSigninButtonClicked}"
             android:text="@string/sign_in"
             android:textColor="@color/primaryColor"
             app:backgroundTint="@color/primaryTextColor"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/til_password" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:id="@+id/sign_up"
+            android:layout_height="wrap_content"
+            android:textColor="@color/primaryTextColor"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/img_bg"
+            android:text="@string/ro_yhatdan_o_tish"
+            android:gravity="center"
+            app:layout_constraintEnd_toStartOf="@+id/btn_sign_in"
+            app:layout_constraintTop_toBottomOf="@id/til_password"/>
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/forget"
             android:layout_width="wrap_content"
@@ -129,36 +141,30 @@
             app:layout_constraintStart_toStartOf="parent"
             />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tx_or"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/or_signup_with"
-            android:layout_marginBottom="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/img_bg" />
+  <com.google.android.gms.common.SignInButton
 
-        <ImageView
+            android:layout_height="40sp"
+            android:layout_width="200dp"
+            app:layout_constraintBottom_toTopOf="@+id/facebook"
             android:id="@+id/google"
-            android:layout_width="30sp"
-            android:layout_height="30sp"
-            android:background="@drawable/ic_google"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/facebook"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tx_or" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/forget"
 
-        <ImageView
+            />
+
+
+        <com.facebook.login.widget.LoginButton
             android:id="@+id/facebook"
-            android:layout_width="35dp"
-            android:layout_height="33dp"
-            android:background="@drawable/ic_facebook"
+            android:layout_width="200dp"
+            android:layout_height="40sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/google"
-            app:layout_constraintTop_toBottomOf="@+id/tx_or" />
+            app:layout_constraintStart_toStartOf="parent"
+
+            app:layout_constraintTop_toBottomOf="@+id/google"
+            />
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
