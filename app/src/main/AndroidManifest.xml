@@ -11,8 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DTM">
-        <activity android:name=".ui.mainUi.MainActivity" />
-        <activity android:name=".ui.registration.RegistrationActivity">
+        <activity android:name=".ui.mainUi.MainActivity">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,15 +20,8 @@
             </intent-filter>
         </activity>
 
-        <meta-data android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id"
-            tools:replace="android:value"/>
 
-        <activity android:name="com.facebook.FacebookActivity"
-            android:configChanges=
-                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/app_name"
-            tools:ignore="WrongManifestParent" />
+
 
 
     </application>

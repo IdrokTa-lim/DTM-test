@@ -14,7 +14,7 @@
         android:id="@+id/favouriteFragment"
         android:name="com.example.dtm.ui.mainUi.favourite.FavouriteFragment"
         android:label="fragment_favourite"
-        tools:layout="@layout/fragment_favourite" />
+        tools:layout="@layout/favourite_fragment" />
     <fragment
         android:id="@+id/historyFragment"
         android:name="com.example.dtm.ui.mainUi.history.HistoryFragment"

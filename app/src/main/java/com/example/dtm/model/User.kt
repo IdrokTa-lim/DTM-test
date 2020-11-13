@@ -1,7 +1,8 @@
-package com.example.recyclerexample.ui.model
+package com.example.dtm.model
 
 import android.graphics.drawable.Drawable
 import androidx.room.Entity
+import androidx.viewpager2.widget.ViewPager2
 
 
 //@Entity(tableName = "user")

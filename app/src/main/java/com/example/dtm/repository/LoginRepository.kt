@@ -6,11 +6,6 @@ import com.example.dtm.R
 import com.example.dtm.RC_SIGN_IN
 import com.example.dtm.toast
 import com.example.dtm.ui.registration.listener.Listener
-import com.facebook.CallbackManager
-import com.facebook.FacebookCallback
-import com.facebook.FacebookException
-import com.facebook.login.LoginManager
-import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
@@ -18,7 +13,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 
 class LoginRepository(
-    val firebaseAuth: FirebaseAuth,
+    private val firebaseAuth: FirebaseAuth,
     private val listener: Listener,
     private val activity: Activity
 ) {
@@ -26,7 +21,7 @@ class LoginRepository(
     private val TAG = "LoginRepository"
     private val gso by lazy<GoogleSignInOptions> {
         GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(activity.getString(R.string.default_web_client_id))
+            .requestIdToken(activity.getString(R.string.default_web_client))
             .requestEmail()
             .build()
     }
@@ -76,21 +71,7 @@ class LoginRepository(
                         verifyEmail(result.user!!)
                     }
                 }
-//                .addOnCompleteListener { result ->
-//                    if (result.isSuccessful) {
-//                        result.addOnSuccessListener { res ->
-//                            if (res.user != null) {
-//                                if (res.user!!.isEmailVerified) {
-//                                    listener.createAccountSuccess(res.user)
-//                                } else {
-//                                    verifyEmail(res.user!!)
-//                                }
-//                            }
-//                        }
-//                    } else{
-//                        result.exception?.let { listener.createAccountFailure(it) }
-//                    }
-//                }
+//
                 .addOnFailureListener { exception ->
                     listener.createAccountFailure(exception)
                 }
@@ -141,34 +122,12 @@ class LoginRepository(
         Log.d(TAG, "signInWithGoogle: startActivityForResult")
         val googleSignInClient = GoogleSignIn.getClient(activity, gso)
         val signInIntent = googleSignInClient.signInIntent
+        Log.d(TAG, "signInWithGoogle:intent: $signInIntent")
         activity.startActivityForResult(signInIntent, RC_SIGN_IN)
     }
 
-    fun signInWithFacebook(callbackManager: CallbackManager) {
-        val loginManager = LoginManager.getInstance()
-        loginManager.logInWithReadPermissions(activity, listOf("public_profile"));
 
 
-        loginManager.registerCallback(callbackManager,
-            object : FacebookCallback<LoginResult?> {
-                override fun onSuccess(loginResult: LoginResult?) {
-                    // App code
-                    activity.toast("Facebookga muvaffaqiyatli kiring")
-
-                }
-
-                override fun onCancel() {
-                    // App code
-                    activity.toast("Facebookga kirishni bekor qilish")
-                }
-
-                override fun onError(exception: FacebookException) {
-                    // App code
-                    listener.signInFailure(exception)
-                    activity.toast("exception: $exception")
-                }
-            })
-    }
 
     fun firebaseAuthWithGoogle(idToken: String?) {
         Log.d(TAG, "firebaseAuthWithGoogle: $idToken")

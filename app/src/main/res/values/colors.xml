@@ -5,6 +5,9 @@
   <color name="primaryDarkColor">#005e8f</color>
   <color name="primaryTextColor">#fff</color>
   <color name="primaryTextEdit">#e2f6fb</color>
+  <color name="transparent">#00000000</color>
+  <color name="product_list_item_bg">#ffffff</color>
+  <color name="view_divider_color">#BABABA</color>
 
   <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#fff</color>
 </resources>

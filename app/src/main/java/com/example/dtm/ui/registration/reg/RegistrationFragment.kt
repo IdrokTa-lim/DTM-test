@@ -2,11 +2,14 @@ package com.example.dtm.ui.registration.reg
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowInsets
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -17,50 +20,50 @@ import com.example.dtm.databinding.RegistrationFragmentBinding
 import com.example.dtm.toast
 import com.example.dtm.ui.mainUi.MainActivity
 import com.example.dtm.ui.registration.listener.Listener
-import com.facebook.CallbackManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.*
 
 
-class RegistrationFragment : Fragment(), Listener, View.OnClickListener {
-
-
-//
-//    lateinit var tvHeight: ImageView
-//    lateinit var tvWidth: ImageView
-//
-//    var display: Display = getWindowManager().getDefaultDisplay().getM
-//    var width = display.width
-//    var height = display.height
+class RegistrationFragment : Fragment(), Listener{
 
 
     private val TAG = "RegistrationFragment"
-    lateinit var callbackManager: CallbackManager
     private lateinit var viewModel: RegistrationViewModel
     private lateinit var binding: RegistrationFragmentBinding
+    private val gso by lazy<GoogleSignInOptions> {
+        GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client))
+            .requestEmail()
+            .build()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        callbackManager = CallbackManager.Factory.create()
+
         binding =
             DataBindingUtil.inflate(inflater, R.layout.registration_fragment, container, false)
 
-        binding.google.setOnClickListener {
-            viewModel.signInWithGoogle()
-        }
 
-        binding.facebook.setOnClickListener {
-            viewModel.signInWithFacebook(callbackManager)
-        }
         return binding.root
 
     }
 
     override fun onResume() {
         super.onResume()
+        setAllViews()
+    }
+
+    private fun setAllViews() {
+
+        setImageHeight()
+
+        binding.google.setOnClickListener {
+            signInWithGoogle()
+        }
         binding.viewModel = viewModel
         binding.signUp.setOnClickListener {
             if (viewModel.isSignIn) {
@@ -72,6 +75,30 @@ class RegistrationFragment : Fragment(), Listener, View.OnClickListener {
 
     }
 
+    override fun signInWithGoogle() {
+        Log.d(TAG, "signInWithGoogle: startActivityForResult")
+        val googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
+        val signInIntent = googleSignInClient.signInIntent
+        Log.d(TAG, "signInWithGoogle:intent: $signInIntent")
+        startActivityForResult(signInIntent, RC_SIGN_IN)
+    }
+
+    private fun setImageHeight() {
+        val screenHeight = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            val windowMetrics = requireActivity().windowManager.currentWindowMetrics
+            val insets = windowMetrics.windowInsets
+                .getInsetsIgnoringVisibility(WindowInsets.Type.systemBars())
+            windowMetrics.bounds.height()
+        } else {
+            val displayMetrics = DisplayMetrics()
+            requireActivity().windowManager.defaultDisplay.getMetrics(displayMetrics)
+            displayMetrics.heightPixels
+        }
+
+        val params = binding.imgBg.layoutParams
+        params.height = screenHeight * 4 / 6
+        binding.imgBg.layoutParams = params
+    }
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         val factory = RegistrationViewModelFactory(findNavController(), this, requireActivity())
@@ -106,7 +133,7 @@ class RegistrationFragment : Fragment(), Listener, View.OnClickListener {
 
     @SuppressLint("SetTextI18n")
     private fun signUp() {
-        binding.username.visibility = View.VISIBLE
+        binding.tilUsername.visibility = View.VISIBLE
         binding.btnSignIn.text = "Registratsiya"
         binding.signIn.text = "Registratsiya"
         binding.signUp.text = "Kirish"
@@ -115,7 +142,8 @@ class RegistrationFragment : Fragment(), Listener, View.OnClickListener {
 
     //    @SuppressLint("SetTextI18n")
     private fun signIn() {
-        binding.username.visibility = View.GONE
+
+        binding.tilUsername.visibility = View.GONE
         binding.btnSignIn.text = "Kirish"
         binding.signIn.text = "Kirish"
         binding.signUp.text = "Ro'yxatdan o'ting"
@@ -123,7 +151,6 @@ class RegistrationFragment : Fragment(), Listener, View.OnClickListener {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        callbackManager.onActivityResult(requestCode, resultCode, data)
         super.onActivityResult(requestCode, resultCode, data)
 
         Log.d(TAG, "onActivityResult: open on activity result")
@@ -139,9 +166,8 @@ class RegistrationFragment : Fragment(), Listener, View.OnClickListener {
 
             }
         }
-
-
     }
+
 
 
 
@@ -161,22 +187,7 @@ class RegistrationFragment : Fragment(), Listener, View.OnClickListener {
         Log.e(TAG, "createAccountFailure: $exception")
     }
 
-    override fun getWindowManager(view: View) {
-        TODO("Not yet implemented")
-    }
 
-    override fun onClick(v: View?) {
-        if (v != null) {
-            when (v.id) {
-                R.id.google -> viewModel.signInWithGoogle()
-
-            }
-        }
-    }
-
-    companion object {
-        private const val TAG = "GoogleActivity"
-    }
 
 
 }

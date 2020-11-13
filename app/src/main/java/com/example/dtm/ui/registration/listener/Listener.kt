@@ -13,6 +13,6 @@ interface Listener {
     fun signInFailure(exception: Exception)
     fun createAccountSuccess(user: FirebaseUser?)
     fun createAccountFailure(exception: Exception)
-    fun getWindowManager(view: View)
+    fun signInWithGoogle()
 
 }
