@@ -15,7 +15,7 @@
     <string name="email">Email</string>
     <string name="forget_password">Parolni unutdingizmi?</string>
     <string name="facebook_app_id">1252657175115561</string>
-    <string name="fb_login_protocol_scheme">1252657175115561</string>
+    <string name="fb_login_protocol_scheme">fb1252657175115561</string>
     <string name="default_web_client" translatable="false">917660014685-9gkvh5s1q4m7shdlabrnv5h6o7e6773e.apps.googleusercontent.com</string>
     <string name="ro_yhatdan_o_tish">Ro\'yhatdan o\'tish</string>
 

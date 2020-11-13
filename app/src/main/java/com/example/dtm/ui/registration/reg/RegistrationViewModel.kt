@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.example.dtm.ui.registration.listener.Listener
 import com.example.dtm.repository.LoginRepository
-import com.facebook.CallbackManager
 import com.google.android.material.button.MaterialButton
 
 
@@ -53,9 +52,6 @@ class RegistrationViewModel(navController: NavController, listener: Listener, ac
         registrationRepo?.signInWithGoogle()
     }
 
-    fun signInWithFacebook(callbackManager: CallbackManager){
-        registrationRepo?.signInWithFacebook(callbackManager)
-    }
 
     fun firebaseAuthWithGoogle(idToken: String?){
         registrationRepo?.firebaseAuthWithGoogle(idToken)
